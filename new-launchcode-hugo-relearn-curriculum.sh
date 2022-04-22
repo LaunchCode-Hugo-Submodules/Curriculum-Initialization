@@ -1,11 +1,15 @@
-## User can also provide an absolute path as an argument
-
-## How to load an argument? - Name of project
-
+#!/bin/bash
 project_name=$1
+project_directory=$2
 original_directory=$(pwd)
 
-cd ..
+if [[ $project_directory != "" ]]
+then
+	mkdir -p $project_directory
+	cd $project_directory
+else
+	cd ..
+fi
 
 hugo new site $project_name
 

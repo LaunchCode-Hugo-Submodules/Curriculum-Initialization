@@ -21,7 +21,9 @@ git submodule add https://github.com/LaunchCode-Hugo-Submodules/vs-code-snippets
 
 git submodule add https://github.com/LaunchCode-Hugo-Submodules/hugo-theme-relearn themes/hugo-theme-relearn
 
-echo 'theme = "hugo-theme-relearn"' >> config.toml
+touch hugo.toml
+
+echo 'theme = "hugo-theme-relearn"' >> hugo.toml
 
 rm -rf layouts
 
@@ -35,13 +37,13 @@ rm -rf archetypes
 
 git submodule add https://github.com/LaunchCode-Hugo-Submodules/archetypes
 
-echo -e '\n[outputs]' >> config.toml
+echo -e '\n[outputs]' >> hugo.toml
 
-echo -e '  home = ["HTML", "RSS", "SEARCH"]' >> config.toml
+echo -e '  home = ["HTML", "RSS", "SEARCH"]' >> hugo.toml
 
-echo -e '\n[params]' >> config.toml
+echo -e '\n[params]' >> hugo.toml
 
-echo -e '  themeVariant = ["lc-light", "lc-dark-blue", "lc-dark-blue-two"]' >> config.toml
+echo -e '  themeVariant = ["lc-light", "lc-dark-blue", "lc-dark-blue-two"]' >> hugo.toml
 
 (
 cat <<'EOF'
@@ -77,7 +79,5 @@ Upon running the above command it will create a new chapter named `chapter-name`
 
 EOF
 ) > content/_index.md
-
-rm hugo.toml
 
 cd $original_directory

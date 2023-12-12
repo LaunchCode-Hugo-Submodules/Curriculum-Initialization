@@ -17,9 +17,13 @@ cd $project_name
 
 git init
 
+git submodule add https://github.com/LaunchCode-Hugo-Submodules/vs-code-snippets.git .vscode
+
 git submodule add https://github.com/LaunchCode-Hugo-Submodules/hugo-theme-relearn themes/hugo-theme-relearn
 
-echo 'theme = "hugo-theme-relearn"' >> config.toml
+touch hugo.toml
+
+echo 'theme = "hugo-theme-relearn"' >> hugo.toml
 
 rm -rf layouts
 
@@ -33,17 +37,23 @@ rm -rf archetypes
 
 git submodule add https://github.com/LaunchCode-Hugo-Submodules/archetypes
 
-echo -e '\n[params]' >> config.toml
+echo -e '\n[outputs]' >> hugo.toml
 
-echo -e '  themeVariant = ["lc-light", "lc-dark-blue", "lc-dark-blue-two"]' >> config.toml
+echo -e '  home = ["HTML", "RSS", "SEARCH"]' >> hugo.toml
+
+echo -e '\n[params]' >> hugo.toml
+
+echo -e '  themeVariant = ["lc-light", "lc-dark-blue", "lc-dark-blue-two"]' >> hugo.toml
 
 (
 cat <<'EOF'
----
-title: "Home"
-date: 2021-10-01T09:28:27-05:00
-draft: false
----
++++
+chapter = false
+title = "Home"
+description = "LaunchCode Technical Training"
+date = 2021-10-01T09:28:27-05:00
+draft = false
++++
 
 # LaunchCode
 
@@ -56,25 +66,18 @@ You pulled in three LaunchCode created github submodules:
 
 Example usage of segment:
 ```bash
-hugo new --kind segment chapter-name
+hugo new --kind chapter <name>/_index.md
 ```
 
 Upon running the above command it will create a new chapter named `chapter-name`
 
-{{% notice warning %}}
-Replace the content of this entire file with the desired homepage contents of this course!
-{{% /notice %}}
-
 ## Helpful Links
 
-[LaunchCode Technical Training Github](https://github.com/LaunchCodeTechnicalTraining)
+[LaunchCode Education Github](https://github.com/LaunchCodeEducation)
 
 [Relearn Documentation](https://mcshelby.github.io/hugo-theme-relearn/)
 
-[Live link to Linux Curriculum](https://lctt-linux.netlify.app/)
 EOF
 ) > content/_index.md
-
-hugo new --kind segment example-chapter
 
 cd $original_directory
